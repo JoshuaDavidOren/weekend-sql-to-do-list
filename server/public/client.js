@@ -11,7 +11,7 @@ function renderTaskList() {
 
     $.ajax({
             type: 'GET',
-            url: '/',
+            url: '/to_do',
         })
         .then(response => {
             console.log('Looking for to do list', response);
@@ -71,4 +71,15 @@ function completeTask() {
 function deleteTask() {
     let taskId = $(this).data('id');
 
+    $.ajax({
+            method: 'DELETE',
+            url: `/todo/${taskId}`
+        })
+        .then((response) => {
+            console.log('Bye task');
+            renderTaskList();
+        })
+        .catch((err) => {
+            console.log('you can not DELETE this! DO YOUR CHORES!!!!');
+        });
 }

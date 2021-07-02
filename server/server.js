@@ -6,7 +6,7 @@ app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
 app.use(express.static('server/public'));
 // for the routes
-//app.use('/to_do', listRouter)
+app.use('/to_do', listRouter)
 
 const PORT = 5000;
 app.listen(PORT, () => {
