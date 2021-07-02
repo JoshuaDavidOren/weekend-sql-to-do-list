@@ -16,7 +16,7 @@ pool.on('connect', (client) => {
 });
 
 pool.on('err', (client) => {
-    console.log('Unexspected error, client are you there?');
+    console.log('Unexpected error, client are you there?');
 });
 // access to this^^^ in other code for query's
 module.exports = pool
