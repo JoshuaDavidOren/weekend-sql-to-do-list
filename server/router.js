@@ -18,4 +18,26 @@ listRouter.get('/', (req, res) => {
         });
 });
 
+listRouter.post('/', (req, res) => {
+    const listItem = req.body;
+    console.log('what', req.body);
+
+    const qText = `
+    INSERT INTO "to_do" ("task", "complete")
+    VALUES ($1, $2);
+    `;
+
+    pool.query(qText, [
+            listItem.task,
+            listItem.complete,
+        ])
+        .then((dbresponse) => {
+            res.sendStatus(201);
+        })
+        .catch((err) => {
+            console.log('task is to hard go away', err);
+            res.sendStatus(500);
+        })
+});
+
 module.exports = listRouter;

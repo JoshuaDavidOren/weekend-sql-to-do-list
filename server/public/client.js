@@ -4,10 +4,13 @@ $(document).ready(connect);
 function connect() {
     console.log('JQ');
     renderTaskList()
+    $('#submit').on('click', addToList)
 }
 
 function renderTaskList() {
     $('#list').empty();
+
+    $('#task').val('');
 
     $.ajax({
             type: 'GET',
@@ -35,21 +38,27 @@ function renderTaskList() {
 };
 
 function addToList() {
-    $.ajax({
-            type: 'POST',
-            url: '/',
-            data: {
-                task: $('#task').val(),
-                complete: 'false'
-            }
-        })
-        .then((response) => {
-            console.log('Adding more shit to do');
-            renderTaskList()
-        })
-        .catch((err) => {
-            console.log('Can not add to shit list', err);
-        });
+    console.log('Making more work');
+
+    if ($('#task').val() === "") {
+        alert('Please enter in a task')
+    } else {
+        $.ajax({
+                type: 'POST',
+                url: '/to_do',
+                data: {
+                    task: $('#task').val(),
+                    complete: false
+                }
+            })
+            .then((response) => {
+                console.log('Adding more shit to do');
+                renderTaskList()
+            })
+            .catch((err) => {
+                console.log('Can not add to shit list', err);
+            });
+    }
 }
 
 function completeTask() {
@@ -57,7 +66,7 @@ function completeTask() {
     // update complete from false to true in the DB
     $.ajax({
             method: 'PUT',
-            url: `/todo/${taskId}`
+            url: `/to_do/${taskId}`
         })
         .then((response) => {
             console.log('Task COMPLETED!!!');
@@ -73,7 +82,7 @@ function deleteTask() {
 
     $.ajax({
             method: 'DELETE',
-            url: `/todo/${taskId}`
+            url: `/to_do/${taskId}`
         })
         .then((response) => {
             console.log('Bye task');
