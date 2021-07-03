@@ -27,9 +27,15 @@ function renderTaskList() {
 
                 if (i.complete === true) {
                     //$(this) // update completed tasks with green css
-                    completeButton = "";
-                }
-                $('#list').append(`
+                    $('#list').append(`
+            <tr class='green'>
+            <td>${i.task}</td>
+            <td><span>DONE</span></td>
+            <td><button class = "delete" data-id=${i.id}>DELETE</button></td>
+        </tr>
+            `);
+                } else
+                    $('#list').append(`
             <tr>
             <td>${i.task}</td>
             <td>${completeButton}</td>
@@ -66,6 +72,9 @@ function addToList() {
 
 function completeTask() {
     console.log('YOU DID IT!!!');
+
+    $(this).parent().parent().css('background-color', 'green');
+
     let taskId = $(this).data('id');
     // update complete from false to true in the DB
     $.ajax({
