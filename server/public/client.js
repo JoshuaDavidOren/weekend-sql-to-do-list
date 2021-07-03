@@ -5,6 +5,7 @@ function connect() {
     console.log('JQ');
     renderTaskList()
     $('#submit').on('click', addToList)
+    $('#list').on('click', '.complete-button', completeTask)
 }
 
 function renderTaskList() {
@@ -23,7 +24,7 @@ function renderTaskList() {
                 let completeButton = `<button class="complete-button" data-id=${i.id}>complete</button>`;
 
                 if (i.complete === true) {
-                    $(this) // update completed tasks with green css
+                    //$(this) // update completed tasks with green css
                     completeButton = "";
                 }
                 $('#list').append(`
@@ -62,6 +63,7 @@ function addToList() {
 }
 
 function completeTask() {
+    console.log('YOU DID IT!!!');
     let taskId = $(this).data('id');
     // update complete from false to true in the DB
     $.ajax({

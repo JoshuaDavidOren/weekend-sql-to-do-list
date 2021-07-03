@@ -40,4 +40,23 @@ listRouter.post('/', (req, res) => {
         })
 });
 
+listRouter.put('/:id', (req, res) => {
+    const rowId = req.params.id;
+
+    const qText = `
+    UPDATE "to_do" SET "complete" = 'true' 
+    WHERE id = $1;
+    `;
+
+    pool.query(qText, [rowId])
+        .then(dbResponse => {
+            console.log('You completed a task!!!', dbResponse.rowCount);
+            res.sendStatus(202);
+        })
+        .catch(err => {
+            console.log('are you sure your task is complete?', err);
+            res.sendStatus(500);
+        });
+});
+
 module.exports = listRouter;
