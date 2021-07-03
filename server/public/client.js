@@ -5,7 +5,7 @@ function connect() {
     console.log('JQ');
     renderTaskList();
     $('#submit').on('click', addToList);
-    $('#list').on('click', '.complete-button', completeTask);
+    $('#list').on('click', '.complete', completeTask);
     $('#list').on('click', '.delete', deleteTask)
 
 }
@@ -23,14 +23,14 @@ function renderTaskList() {
             console.log('Looking for to do list', response);
 
             for (let i of response) {
-                let completeButton = `<button class="complete-button" data-id=${i.id}>complete</button>`;
+                let completeButton = `<button class="complete" data-id=${i.id}>complete</button>`;
 
                 if (i.complete === true) {
                     //$(this) // update completed tasks with green css
                     $('#list').append(`
             <tr class='green'>
             <td>${i.task}</td>
-            <td><span>DONE</span></td>
+            <td><span></span></td>
             <td><button class = "delete" data-id=${i.id}>DELETE</button></td>
         </tr>
             `);
