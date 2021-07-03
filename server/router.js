@@ -6,7 +6,7 @@ const listRouter = express.Router();
 listRouter.get('/', (req, res) => {
     console.log('someone is trying to GET my list');
 
-    let qText = 'SELECT * FROM "to_do";';
+    let qText = 'SELECT * FROM "to_do" ORDER BY "id" ASC;';
 
     pool.query(qText)
         .then(result => {
@@ -44,7 +44,7 @@ listRouter.put('/:id', (req, res) => {
     const rowId = req.params.id;
 
     const qText = `
-    UPDATE "to_do" SET "complete" = 'true' 
+    UPDATE "to_do" SET "complete" = true 
     WHERE id = $1;
     `;
 
@@ -55,6 +55,23 @@ listRouter.put('/:id', (req, res) => {
         })
         .catch(err => {
             console.log('are you sure your task is complete?', err);
+            res.sendStatus(500);
+        });
+});
+
+listRouter.delete('/:id', (req, res) => {
+    const listId = req.params.id;
+
+    const qText = `DELETE FROM  "to_do" WHERE ID = $1;
+    `;
+
+    pool.query(qText, [listId])
+        .then(dbResponse => {
+            console.log('Deleted task from to_do');
+            res.sendStatus(201);
+        })
+        .catch(err => {
+            console.log('can not delete your task', err);
             res.sendStatus(500);
         });
 });

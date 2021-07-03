@@ -3,9 +3,11 @@ $(document).ready(connect);
 
 function connect() {
     console.log('JQ');
-    renderTaskList()
-    $('#submit').on('click', addToList)
-    $('#list').on('click', '.complete-button', completeTask)
+    renderTaskList();
+    $('#submit').on('click', addToList);
+    $('#list').on('click', '.complete-button', completeTask);
+    $('#list').on('click', '.delete', deleteTask)
+
 }
 
 function renderTaskList() {
@@ -68,7 +70,7 @@ function completeTask() {
     // update complete from false to true in the DB
     $.ajax({
             method: 'PUT',
-            url: `/to_do/${taskId}`
+            url: `/to_do/${taskId}`,
         })
         .then((response) => {
             console.log('Task COMPLETED!!!');
@@ -80,6 +82,7 @@ function completeTask() {
 }
 
 function deleteTask() {
+    console.log('Get out of here!!!');
     let taskId = $(this).data('id');
 
     $.ajax({
