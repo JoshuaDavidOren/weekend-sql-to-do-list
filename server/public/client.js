@@ -7,10 +7,14 @@ function connect() {
     $('#submit').on('click', addToList);
     $('#list').on('click', '.complete', completeTask);
     $('#list').on('click', '.delete', deleteTask);
-    $('#refreshButton').on('click', restart);
-    setTimeout(restart, 99000);
-
+    setTimeout(restart, 100000);
+    $('#refreshButton').on('click', reload);
 }
+
+function reload() {
+    location.reload()
+}
+
 
 function renderTaskList() {
     $('#list').empty();
@@ -120,6 +124,6 @@ function restart() {
     re.before(reClone);
 
     $('.' + re.attr('class') + ':last').remove();
-    clearTimeout();
-    setTimeout(restart, 99000);
+    setTimeout(restart, 100000);
+
 }
