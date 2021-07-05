@@ -6,7 +6,9 @@ function connect() {
     renderTaskList();
     $('#submit').on('click', addToList);
     $('#list').on('click', '.complete', completeTask);
-    $('#list').on('click', '.delete', deleteTask)
+    $('#list').on('click', '.delete', deleteTask);
+    $('#refreshButton').on('click', restart);
+    setTimeout(restart, 99000);
 
 }
 
@@ -73,8 +75,6 @@ function addToList() {
 function completeTask() {
     console.log('YOU DID IT!!!');
 
-    $(this).parent().parent().css('background-color', 'green');
-
     let taskId = $(this).data('id');
     // update complete from false to true in the DB
     $.ajax({
@@ -105,4 +105,21 @@ function deleteTask() {
         .catch((err) => {
             console.log('you can not DELETE this! DO YOUR CHORES!!!!');
         });
+}
+
+
+
+
+
+
+function restart() {
+    console.log('trying to restart');
+    let re = $('#refresh'),
+        reClone = re.clone(true);
+
+    re.before(reClone);
+
+    $('.' + re.attr('class') + ':last').remove();
+    clearTimeout();
+    setTimeout(restart, 99000);
 }
