@@ -2,7 +2,7 @@
 const pg = require('pg');
 const Pool = pg.Pool;
 const config = {
-    database: 'the_never_ending_list',
+    database: 'weekend-to-do-app',
     host: 'localhost',
     port: 5432,
     max: 9001,
